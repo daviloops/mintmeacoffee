@@ -1,0 +1,58 @@
+import { useState } from 'react';
+
+import { Modal, ModalOverlay, ModalContent, ModalBody, ModalHeader, ModalCloseButton, Image, Box, Text, Avatar } from '@chakra-ui/react';
+
+import { storageBaseUrl } from '@/config/constants';
+import { MintedNft } from '@/types/types';
+
+interface NftModalI {
+  nft: MintedNft,
+  isOpen: boolean,
+  onClose: () => void,
+}
+
+const NftModal = ({ nft, isOpen, onClose }: NftModalI) => {
+  const [showImage, setShowImage] = useState(true);
+
+  const decodeExtra = (extra: string) =>  extra ? JSON.parse(extra) : {};
+
+  const getMessage = () => decodeExtra(nft.extra).message || '';
+
+  const getSigner = () => decodeExtra(nft.extra).signer || '';
+
+  const handleToggle = () => setShowImage(prev => !prev);
+
+  return (
+    <Modal isOpen={isOpen} onClose={onClose} isCentered>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>#{nft.id}</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>
+          {showImage ? (
+            <Image _hover={{ cursor: 'pointer' }} src={nft.media ? `${storageBaseUrl}${nft.media}` : undefined} onClick={handleToggle} />
+          ) : (
+            <Box backgroundColor="purple.100" _hover={{ cursor: 'pointer' }} sx={{ width: '400px', height: '400px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} onClick={handleToggle}>
+              <Text as="i" color="purple" fontSize="xl">{nft.description}</Text>
+            </Box>
+          )}
+          <Box p={2}>
+            <Box display="flex" alignItems="center" mt={2}>
+              <Avatar size="sm" mr={2} />
+              <Text>{nft.receiver}</Text>
+            </Box>
+            <Box mt={2} mb={4} textAlign={!!getMessage() ? undefined : 'center'}>
+              <Text as="i">{getMessage() || 'No message'}</Text>
+            </Box>
+            <Box display="flex" alignItems="center" justifyContent="flex-end" my={2}>
+              <Avatar size="sm" mr={2} />
+              <Text>{getSigner()}</Text>
+            </Box>
+          </Box>
+        </ModalBody>
+      </ModalContent>
+    </Modal>
+  );
+};
+
+export default NftModal;
