@@ -1,26 +1,31 @@
-dApp on near protocol to support people by minting them NFTs and donating.
+☕ dApp on near protocol to support people by minting them NFTs and donating.
 
-The dApp uses mintbase sdk to mint NFTs. To learn more about mintbase go to https://www.mintbase.xyz/.
+The dApp uses mintbase sdk to mint NFTs. To learn more [visit](https://www.mintbase.xyz/).
 
-0) Create near user
-  Create an account in near to be the owner of the contracts. 
-1) Create mintbase nft contract
-  Go to [mintbase website](https://www.mintbase.xyz/), connect with a wallet and create and new nft contract assigning a near account address as the owner of the mintbase nft contract.
+0) Copy .env.local.example into .env.local to set your own environment variables
+1) Create near user
+  Create an account in near to be the owner of the contracts. Save account addres on .env.local file.
+2) Create mintbase nft contract
+    - Go to [mintbase website](https://www.mintbase.xyz/)
+    - Connect with a wallet
+    - Create a new nft contract assigning a near account address as the owner of the mintbase nft contract.
 3) Create a proxy minter account
-  Create a new near account. You can create a subaccount using the previous owner account with:
-  3.0) Install near cli (optional)
-   npm install --global near-cli
-  3.1) Login with owner account
-   near login
-  3.2) Create subaccount
-   near create-account PROXY-SUBACCOUNT-NAME.YOUR-ACCOUNT-NAME.testnet --masterAccount YOUR-ACCOUNT-NAME.testnet
-  3.3) Build and deploy this [proxy contract]()
-   near deploy --accountId PROXY-SUBACCOUNT-NAME.YOUR-ACCOUNT-NAME.testnet --wasmFile PATH_TO_WASM_FILE
-  3.4) Set proxy contract at .env.local file
+
+   Create a new near account. You can create a subaccount using the previous owner account with:
+    - Install near cli (optional)
+       npm install --global near-cli
+    - Login with owner account
+       near login
+    - Create subaccount
+        near create-account PROXY-SUBACCOUNT-NAME.YOUR-ACCOUNT-NAME.testnet --masterAccount YOUR-ACCOUNT-NAME.testnet
+    - Build and deploy this [proxy contract]()
+        near deploy --accountId PROXY-SUBACCOUNT-NAME.YOUR-ACCOUNT-NAME.testnet --wasmFile PATH_TO_WASM_FILE
+    - Set proxy contract at .env.local file
 5) Get an api key from deepAI (or use default, but please moderate)
-  5.1) Sign up at deepai.org
-  5.2) Go to profile at https://deepai.org/dashboard/profile, copy your api key and set it at .env.local file
-7) 
+    - Sign up at deepai.org
+    - Go to profile at https://deepai.org/dashboard/profile, copy your api key and set it at .env.local file
+6) Install dependencies with npm i
+7) Interact with nextjs project using using the following instructions:
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
