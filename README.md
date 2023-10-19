@@ -9,7 +9,7 @@ The dApp uses mintbase sdk to mint NFTs. To learn more [visit](https://www.mintb
     - Go to [mintbase website](https://www.mintbase.xyz/)
     - Connect with a wallet
     - Create a new nft contract assigning a near account address as the owner of the mintbase nft contract.
-3) Create a proxy minter account
+3) Create a proxy minter contract
 
    Create a new near account. You can create a subaccount using the previous owner account with:
     - Install near cli (optional)
@@ -18,7 +18,7 @@ The dApp uses mintbase sdk to mint NFTs. To learn more [visit](https://www.mintb
        near login
     - Create subaccount
         near create-account PROXY-SUBACCOUNT-NAME.YOUR-ACCOUNT-NAME.testnet --masterAccount YOUR-ACCOUNT-NAME.testnet
-    - Build and deploy this [proxy contract]()
+    - Build and deploy this [proxy contract](https://github.com/daviloops/mintmeacoffee-proxy)
         near deploy --accountId PROXY-SUBACCOUNT-NAME.YOUR-ACCOUNT-NAME.testnet --wasmFile PATH_TO_WASM_FILE
     - Set proxy contract at .env.local file
 5) Get an api key from deepAI (or use default, but please moderate)
