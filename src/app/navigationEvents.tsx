@@ -10,7 +10,7 @@ export function NavigationEvents() {
   useEffect(() => {
     const url = `${pathname}?${searchParams}`;
     console.log(url)
-    if (pathname)
+    if (pathname) {}
   }, [pathname, searchParams])
  
   return null

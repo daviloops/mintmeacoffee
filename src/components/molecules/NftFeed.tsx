@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 
-import NftList from '@/components/NftList';
+import NftList from '@/components/molecules/NftList';
 import { FetchFeedMintedData, MintedNft, WrapPromise } from '@/types';
 
 const NftFeed = ({ data, handleNftClick }: { data: WrapPromise | undefined, handleNftClick: Function }) => {

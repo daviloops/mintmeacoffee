@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import NftFeedView from '@/components/NftFeedView';
+import NftFeedView from '@/components/organisms/NftFeedView';
 import fetchFeedMintedProfile from "@/data/queries/fetchFeedMintedProfile";
 import { WrapPromise } from '@/types';
 

@@ -27,9 +27,7 @@ const FileUpload = ({ setFileId }: { setFileId: Function }) => {
     <div>
       <form onSubmit={handleSubmit}>
         <input type="file" onChange={handleChange} />
-        <button
-          type="submit"
-        >
+        <button type="submit">
           Upload
         </button>
       </form>

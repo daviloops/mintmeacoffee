@@ -3,7 +3,7 @@
 import { useWallet } from '@mintbase-js/react';
 import { Button, useDisclosure } from "@chakra-ui/react";
 
-import MintCoffeeModal from "@/components/MintCoffeeModal";
+import MintCoffeeModal from "@/components/organisms/MintCoffeeModal";
 
 const MintCoffeeButton = ({ profileId }: { profileId: string }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();

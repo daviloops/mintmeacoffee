@@ -4,6 +4,7 @@ export interface MintedNft {
   extra: string,
   description?: string,
   receiver: string,
+  baseUri?: string,
 }
 
 export interface FetchFeedMintedData {

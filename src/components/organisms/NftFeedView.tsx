@@ -6,9 +6,9 @@ import { useDisclosure } from "@chakra-ui/react";
 import { MintedNft, WrapPromise } from "@/types";
 
 import ErrorBoundary from '@/data/ErrorBoundary';
-import NftFeed from "@/components/NftFeed";
-import NftModal from "@/components/NftModal";
-import { Loading } from "@/components/NftList";
+import NftFeed from "@/components/molecules/NftFeed";
+import NftModal from "@/components/organisms/NftModal";
+import { Loading } from "@/components/molecules/NftList";
 
 const defaultMintedNft: MintedNft = {
   id: '',

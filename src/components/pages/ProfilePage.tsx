@@ -1,8 +1,8 @@
 import { FC } from 'react';
 
 import { Box } from '@chakra-ui/react';
-import Profile from '@/components/Profile';
-import ProfileTabs from '@/components/ProfileTabs';
+import Profile from '@/components/organisms/Profile';
+import ProfileTabs from '@/components/organisms/ProfileTabs';
 
 interface pageProps {
   profileId: string
@@ -11,7 +11,7 @@ interface pageProps {
 const ProfilePage: FC<pageProps> = ({ profileId }) => {
   return (
     <main>
-      <Box p={4}>
+      <Box px={4} pb={4} pt={2}>
         <Profile profileId={profileId} />
       </Box>
       

@@ -21,7 +21,7 @@ import { useWallet } from '@mintbase-js/react';
 import { uploadFile } from '@mintbase-js/storage';
 import { coffeeNftContractId, storageBaseUrl, coffeeImgId } from '@/config/constants';
 import useImageAi from '@/hooks/useImageAi';
-import MintButton from '@/components/MintButton';
+import MintButton from '@/components/atoms/MintButton';
 
 type MintCoffeeModalProps = {
   profileId: string,

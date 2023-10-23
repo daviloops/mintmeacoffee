@@ -1,6 +1,6 @@
 'use client';
 
-import NftFeedView from '@/components/NftFeedView';
+import NftFeedView from '@/components/organisms/NftFeedView';
 import fetchFeedMintedAll from "@/data/queries/fetchFeedMintedAll";
 
 const data = fetchFeedMintedAll();

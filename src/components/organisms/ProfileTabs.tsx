@@ -13,8 +13,8 @@ import {
   useMultiStyleConfig,
   ButtonProps,
 } from '@chakra-ui/react';
-import NftFeedViewProfile from '@/components/NftFeedViewProfile';
-import Portfolio from '@/components/Portfolio';
+import NftFeedViewProfile from '@/components/organisms/NftFeedViewProfile';
+import Portfolio from '@/components/organisms/Portfolio';
 
 const CustomTab = forwardRef<HTMLElement, ButtonProps>((props, ref) => {
   const tabProps = useTab({ ...props, ref })

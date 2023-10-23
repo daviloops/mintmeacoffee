@@ -9,7 +9,7 @@ const Header = () => {
   const { isConnected, connect, disconnect } = useWallet();
 
   return (
-    <Box as="nav" sx={{ minHeight: '70px', display: 'flex', alignItems: 'center', padding: '8px 16px' }}>
+    <Box as="nav" px={4} py={2} sx={{ display: 'flex', alignItems: 'center' }}>
       <Box sx={{ flexGrow: 1 }}>
         <Box
           as="button"

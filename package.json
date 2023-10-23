@@ -19,6 +19,7 @@
     "@mintbase-js/storage": "^0.4.1-beta.6-prerelease",
     "@near-wallet-selector/default-wallets": "^8.1.4",
     "@near-wallet-selector/modal-ui": "^8.5.4",
+    "bootstrap-icons": "^1.11.1",
     "deepai": "^1.0.23",
     "framer-motion": "^10.16.4",
     "isomorphic-unfetch": "^4.0.2",

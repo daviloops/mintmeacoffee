@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
-import Header from '@/components/Header';
-import Splash from '@/components/Splash';
+import Header from '@/components/organisms/Header';
+import Splash from '@/components/organisms/Splash';
 import Providers from './providers';
 import '@near-wallet-selector/modal-ui/styles.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] })

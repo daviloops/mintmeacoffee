@@ -1,6 +1,6 @@
 import { VStack } from '@chakra-ui/react';
-import MintCoffeeButton from '@/components/MintCoffeeButton';
-import ProfileData from '@/components/ProfileData';
+import MintCoffeeButton from '@/components/molecules/MintCoffeeButton';
+import ProfileData from '@/components/organisms/ProfileData';
 
 const Profile = ({ profileId }: { profileId: string }) => {
   return (
