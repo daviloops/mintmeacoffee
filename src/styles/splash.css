@@ -1,0 +1,78 @@
+.fadeAnimation {
+  display: flex;
+  opacity: 1;
+
+  -webkit-animation: fadeInFromNone 0.5s ease-out;
+  -moz-animation: fadeInFromNone 0.5s ease-out;
+  -o-animation: fadeInFromNone 0.5s ease-out;
+  animation: fadeInFromNone 0.5s ease-out;
+  animation-delay: 3s;
+}
+
+@-webkit-keyframes fadeInFromNone {
+  100% {
+    display: flex;
+    opacity: 1;
+  }
+
+  0.001% {
+    display: flex;
+    opacity: 1;
+  }
+  
+  100% {
+    display: flex;
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes fadeInFromNone {
+  0% {
+    display: flex;
+    opacity: 1;
+  }
+
+  0.001% {
+    display: flex;
+    opacity: 1;
+  }
+
+  100% {
+    display: flex;
+    opacity: 0;
+  }
+}
+
+@-o-keyframes fadeInFromNone {
+  0% {
+    display: flex;
+    opacity: 1;
+  }
+
+  0.001% {
+    display: flex;
+    opacity: 1;
+  }
+
+  100% {
+    display: flex;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInFromNone {
+  0% {
+    display: flex;
+    opacity: 1;
+  }
+
+  0.001% {
+    display: flex;
+    opacity: 1;
+  }
+
+  100% {
+    display: flex;
+    opacity: 0;
+  }
+}

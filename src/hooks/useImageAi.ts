@@ -4,7 +4,7 @@ import deepai from 'deepai';
 import { storageBaseUrl, coffeeImgId, deepAiApiKey, deepAiDemoApiKey2 } from '@/config/constants';
 
 const useImageAi = () => {
-  const apiKey = deepAiApiKey ? deepAiApiKey : deepAiDemoApiKey2;
+  const apiKey = !!deepAiApiKey ? deepAiApiKey : deepAiDemoApiKey2;
   deepai.setApiKey(apiKey);
 
   const generateImage = async (description: string) => {

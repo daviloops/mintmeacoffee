@@ -23,7 +23,7 @@ const Header = () => {
         </Box>
       </Box>
       <Button colorScheme={isConnected ? 'teal' : 'teal'} variant={isConnected ? "outline" : undefined} onClick={isConnected ? disconnect : connect}>
-        {isConnected ? 'Logout' : 'Login'}
+        {isConnected ? 'Sign out' : 'Connect wallet'}
       </Button>
     </Box>
   );

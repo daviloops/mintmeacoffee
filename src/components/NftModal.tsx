@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Modal, ModalOverlay, ModalContent, ModalBody, ModalHeader, ModalCloseButton, Image, Box, Text, Avatar } from '@chakra-ui/react';
 
 import { storageBaseUrl } from '@/config/constants';
-import { MintedNft } from '@/types/types';
+import { MintedNft } from '@/types';
 
 interface NftModalI {
   nft: MintedNft,
@@ -22,8 +22,13 @@ const NftModal = ({ nft, isOpen, onClose }: NftModalI) => {
 
   const handleToggle = () => setShowImage(prev => !prev);
 
+  const handleClose = () => {
+    onClose();
+    setShowImage(true);
+  };
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered>
+    <Modal isOpen={isOpen} onClose={handleClose} isCentered>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>#{nft.id}</ModalHeader>
