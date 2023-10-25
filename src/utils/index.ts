@@ -8,6 +8,17 @@ const appendPath = (href: string, path: string | undefined) => {
   return url.href;
 };
 
+const validateAccountId = (accountId: string) => {
+  const ACCOUNT_ID_REGEX = /^(([a-z\d]+[-_])*[a-z\d]+\.)*([a-z\d]+[-_])*[a-z\d]+$/;
+
+  return (
+    accountId.length >= 2 &&
+    accountId.length <= 64 &&
+    ACCOUNT_ID_REGEX.test(accountId)
+  );
+}
+
 export {
   appendPath,
+  validateAccountId,
 };

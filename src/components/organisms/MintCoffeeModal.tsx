@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, KeyboardEvent, useRef, ReactNode } from 'react';
 
 import { 
   Box,
@@ -19,10 +19,10 @@ import {
 import { TokenMetadata, MintArgs } from '@mintbase-js/sdk';
 import { useWallet } from '@mintbase-js/react';
 import { uploadFile } from '@mintbase-js/storage';
-import { coffeeNftContractId, baseImgUrl } from '@/config/constants';
+
+import { coffeeNftContractId, baseImgUrl, proxyContractId } from '@/config/constants';
 import useImageAi from '@/hooks/useImageAi';
 import useNftContract from '@/hooks/useNftContract';
-import MintButton from '@/components/atoms/MintButton';
 import { appendPath } from '@/utils';
 
 type MintCoffeeModalProps = {
@@ -34,13 +34,17 @@ type MintCoffeeModalProps = {
 const MintCoffeeModal = ({ profileId, isOpen, onClose, ...props }: MintCoffeeModalProps) => {
   const [fileId, setFileId] = useState<string>('');
   const [loadingBrew, setLoadingBrew] = useState(false);
+  const [loadingMint, setLoadingMint] = useState(false);
   const [coffeeDescription, setCoffeeDescription] = useState<string>('');
   const [coffeeMessage, setCoffeeMessage] = useState<string>('');
   const [baseUri, setBaseUri] = useState<string>('');
   const { getBaseUri } = useNftContract({ accountId: coffeeNftContractId}) 
   
   const { generateImage } = useImageAi();
-  const { activeAccountId } = useWallet();
+  const { activeAccountId, selector, isConnected, connect } = useWallet();
+  const buttonBrewRef = useRef<HTMLButtonElement>(null);
+  const buttonMintRef = useRef<HTMLButtonElement>(null);
+
 
   useEffect(() => {
     getBaseUri(coffeeNftContractId)
@@ -92,6 +96,41 @@ const MintCoffeeModal = ({ profileId, isOpen, onClose, ...props }: MintCoffeeMod
     }
   };
 
+  const handleMint = async (mintArgs: MintArgs): Promise<void> => {
+    if (!isConnected) {
+      connect();
+    } else {
+      setLoadingMint(true);
+      const wallet = await selector.wallet();
+  
+      const { ownerId, metadata, contractAddress } = mintArgs;
+  
+      // *Proxy minter
+      await wallet?.signAndSendTransaction({
+        signerId: activeAccountId || '',
+        receiverId: proxyContractId,
+        actions: [
+          {
+            type: "FunctionCall",
+            params: {
+              methodName: "mint",
+              args: {
+                owner_id: ownerId,
+                metadata: JSON.stringify(metadata),
+                nft_contract_id: contractAddress,
+              },
+              gas: "200000000000000",
+              deposit: "10000000000000000000000",
+            },
+          },
+        ],
+        // @ts-ignore
+        // successUrl: `${protocol}//${domain}${!port ? "" : ":" + port}`,
+      })
+      .finally(() => setLoadingMint(false));
+    }
+  }
+
   const resetMintDialog = () => {
     setCoffeeDescription('');
     setCoffeeMessage('');
@@ -102,6 +141,20 @@ const MintCoffeeModal = ({ profileId, isOpen, onClose, ...props }: MintCoffeeMod
   const handleClose = () => {
     onClose();
     resetMintDialog();
+  };
+
+  const handleKeyPressDescription = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      buttonBrewRef?.current?.click();
+    }
+  };
+
+  const handleKeyPressMessage = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      buttonMintRef?.current?.click();
+    }
   };
 
   return (
@@ -116,11 +169,26 @@ const MintCoffeeModal = ({ profileId, isOpen, onClose, ...props }: MintCoffeeMod
           </Box>
           {!fileId ? (
             <Box px={4}>
-              <Textarea fontSize={{ base: "sm", sm: "md" }} variant="filled" value={coffeeDescription} onChange={handleCoffeeDescriptionChange} placeholder='Enter a description to edit the coffee...' />
+              <Textarea
+                autoFocus
+                onKeyDown={handleKeyPressDescription}
+                fontSize={{ base: "sm", sm: "md" }}
+                variant="filled"
+                value={coffeeDescription}
+                onChange={handleCoffeeDescriptionChange}
+                placeholder='Enter a description to edit the coffee...'
+              />
             </Box>
           ) : (
             <Box px={4}>
-              <Textarea fontSize={{ base: "sm", sm: "md" }} variant="filled" value={coffeeMessage} onChange={handleCoffeeMessageChange} placeholder={`Enter a message for ${profileId}...`}  />
+              <Textarea
+              onKeyDown={handleKeyPressMessage}
+              fontSize={{ base: "sm", sm: "md" }}
+              variant="filled"
+              value={coffeeMessage}
+              onChange={handleCoffeeMessageChange}
+              placeholder={`Enter a message for ${profileId}...`} 
+            />
             </Box>
           )}
         </ModalBody>
@@ -128,7 +196,14 @@ const MintCoffeeModal = ({ profileId, isOpen, onClose, ...props }: MintCoffeeMod
         <ModalFooter>
           <ButtonGroup spacing='4'>
             {!fileId ? (
-              <Button size={{ base: "sm", sm: "md" }} isDisabled={!coffeeDescription} isLoading={loadingBrew} colorScheme='purple' onClick={handleBrew}>
+              <Button
+                ref={buttonBrewRef}
+                size={{ base: "sm", sm: "md" }}
+                isDisabled={!coffeeDescription}
+                isLoading={loadingBrew}
+                colorScheme='purple'
+                onClick={handleBrew}
+              >
                 Brew
               </Button>
             ) : (
@@ -136,9 +211,15 @@ const MintCoffeeModal = ({ profileId, isOpen, onClose, ...props }: MintCoffeeMod
                 <Button size={{ base: "sm", sm: "md" }} variant='outline' colorScheme='teal' onClick={() => setFileId('')}>
                   Back
                 </Button>
-                <MintButton mintArgs={mintArgs}>
+                <Button
+                  ref={buttonMintRef}
+                  size={{ base: "sm", sm: "md" }}
+                  isLoading={loadingMint}
+                  colorScheme='purple'
+                  onClick={() => handleMint(mintArgs)}
+                >
                   Mint
-                </MintButton>
+                </Button>
               </>
             )}
           </ButtonGroup>

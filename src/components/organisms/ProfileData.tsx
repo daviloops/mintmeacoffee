@@ -50,21 +50,13 @@ interface ProfileData {
 
 export const Loading = () =>
   <VStack gap={2}>
-    <SkeletonCircle size="100px" />
-    <SkeletonText noOfLines={1} skeletonHeight={6} w="240px" />
-    <SkeletonText noOfLines={1} skeletonHeight={4} w="700px" />
-    <SkeletonText noOfLines={1} skeletonHeight={4} w="700px" />
-    <SkeletonText noOfLines={1} skeletonHeight={4} w="500px" />
-    <HStack spacing={2}>
-      {[...Array(3)].map(() => (
-        <SkeletonText noOfLines={1} skeletonHeight={3} w="100px" />
-      ))}
-    </HStack>
-    <HStack spacing={4}>
-      {[...Array(4)].map(() => (
-        <SkeletonText noOfLines={1} skeletonHeight={3} w="100px" />
-      ))}
-    </HStack>
+    <SkeletonCircle size={{ base: "60px", sm: "100px" }} />
+    <SkeletonText noOfLines={1} skeletonHeight={6} w={["200px", "240px", "240px", "240px"]} />
+    <SkeletonText noOfLines={1} skeletonHeight={4} w={["250px", "420px","700px", "700px"]} />
+    <SkeletonText noOfLines={1} skeletonHeight={4} w={["250px", "420px","700px", "700px"]} />
+    <SkeletonText noOfLines={1} skeletonHeight={4} w={["180px", "300px","500px", "500px"]} />
+    <SkeletonText noOfLines={1} skeletonHeight={4} w={["120px", "250px","300px", "300px"]} />
+    <SkeletonText noOfLines={1} skeletonHeight={4} w={["190px", "330px","400px", "400px"]} />
   </VStack>;
 
 const ProfileData = ({ profileId }: { profileId: string }) => {
@@ -115,7 +107,7 @@ const ProfileData = ({ profileId }: { profileId: string }) => {
   return (
     <VStack gap={2}>
       <Avatar size={{ base: "lg", sm: "xl" }} src={profileImageUrl} />
-      {profileData.name ? (
+      {profileData?.name ? (
         <VStack spacing={0}>
           <Text fontSize={{ base: "2xl", sm: "3xl" }}>{profileData.name}</Text>
           <Link
@@ -139,19 +131,19 @@ const ProfileData = ({ profileId }: { profileId: string }) => {
         </Link>
         </>
       )}
-      {profileData.description && (
+      {profileData?.description && (
         <Box fontSize={{ base: "sm", sm: "md" }} sx={{ maxWidth: "700px", textAlign: "center" }}>
           <Text as="i">{profileData.description}</Text>
         </Box>
       )}
-      {profileData.tags && (
+      {profileData?.tags && (
         <HStack spacing={2} wrap="wrap" justify="center">
           {Object.keys(profileData.tags)?.map(tag => (
             <Tag fontSize={{ base: "xs", sm: "sm"  }} size={{ base: "sm", sm: "md" }}>{tag}</Tag>
           ))}
         </HStack>
       )}
-      {profileData.linktree && (
+      {profileData?.linktree && (
         <HStack spacing={2} wrap="wrap" justify="center">
           {profileData.linktree.website && (
             <Link fontSize={{ base: "xs", sm: "sm" }} href={`https://${profileData.linktree.website}`} isExternal>
