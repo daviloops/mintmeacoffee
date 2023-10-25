@@ -18,6 +18,7 @@ import useNftContract from '@/hooks/useNftContract';
 
 import { ipfsUrl, CONFIG, coffeeNftContractId } from '@/config/constants';
 import { appendPath } from '@/utils';
+import { wrap } from 'module';
 
 interface ProfileData {
   image?: {
@@ -113,12 +114,12 @@ const ProfileData = ({ profileId }: { profileId: string }) => {
 
   return (
     <VStack gap={2}>
-      <Avatar size="xl" src={profileImageUrl} />
+      <Avatar size={{ base: "lg", sm: "xl" }} src={profileImageUrl} />
       {profileData.name ? (
         <VStack spacing={0}>
-          <Text fontSize="3xl">{profileData.name}</Text>
+          <Text fontSize={{ base: "2xl", sm: "3xl" }}>{profileData.name}</Text>
           <Link
-            fontSize="md"
+            fontSize={{ base: "md", sm: "lg" }}
             sx={{ '&:hover': {color: 'teal'} }}
             href={CONFIG.bosProfilePageUrl + profileId}
             isExternal
@@ -127,6 +128,7 @@ const ProfileData = ({ profileId }: { profileId: string }) => {
           </Link>
         </VStack>
       ) : (
+        <>
         <Link
           fontSize="3xl"
           sx={{ '&:hover': {color: 'teal'} }}
@@ -135,23 +137,24 @@ const ProfileData = ({ profileId }: { profileId: string }) => {
         >
           {profileId}
         </Link>
+        </>
       )}
       {profileData.description && (
-        <Box sx={{ maxWidth: "700px", textAlign: "center" }}>
+        <Box fontSize={{ base: "sm", sm: "md" }} sx={{ maxWidth: "700px", textAlign: "center" }}>
           <Text as="i">{profileData.description}</Text>
         </Box>
       )}
       {profileData.tags && (
-        <HStack spacing={2}>
+        <HStack spacing={2} wrap="wrap" justify="center">
           {Object.keys(profileData.tags)?.map(tag => (
-            <Tag>{tag}</Tag>
+            <Tag fontSize={{ base: "xs", sm: "sm"  }} size={{ base: "sm", sm: "md" }}>{tag}</Tag>
           ))}
         </HStack>
       )}
       {profileData.linktree && (
-        <HStack spacing={4}>
+        <HStack spacing={2} wrap="wrap" justify="center">
           {profileData.linktree.website && (
-            <Link href={`https://${profileData.linktree.website}`} isExternal>
+            <Link fontSize={{ base: "xs", sm: "sm" }} href={`https://${profileData.linktree.website}`} isExternal>
               <HStack spacing={1}>
                 <i className="bi bi-globe"></i>
                 <Text>{profileData.linktree.website}</Text>
@@ -159,7 +162,7 @@ const ProfileData = ({ profileId }: { profileId: string }) => {
             </Link>
           )}
           {profileData.linktree.github && (
-            <Link href={`https://github.com/${profileData.linktree.github}`} isExternal>
+            <Link fontSize={{ base: "xs", sm: "sm" }} href={`https://github.com/${profileData.linktree.github}`} isExternal>
               <HStack spacing={1}>
                 <i className="bi bi-github"></i>
                 <Text>{profileData.linktree.github}</Text>
@@ -167,7 +170,7 @@ const ProfileData = ({ profileId }: { profileId: string }) => {
             </Link>
           )}
           {profileData.linktree.twitter && (
-            <Link href={`https://twitter.com/${profileData.linktree.twitter}`} isExternal>
+            <Link fontSize={{ base: "xs", sm: "sm" }} href={`https://twitter.com/${profileData.linktree.twitter}`} isExternal>
               <HStack spacing={1}>
                 <i className="bi bi-twitter-x"></i>
                 <Text>{profileData.linktree.twitter}</Text>
@@ -175,7 +178,7 @@ const ProfileData = ({ profileId }: { profileId: string }) => {
             </Link>
           )}
           {profileData.linktree.telegram && (
-            <Link href={`https://t.me/${profileData.linktree.telegram}`} isExternal>
+            <Link fontSize={{ base: "xs", sm: "sm" }} href={`https://t.me/${profileData.linktree.telegram}`} isExternal>
               <HStack spacing={1}>
                 <i className="bi bi-telegram"></i>
                 <Text>{profileData.linktree.telegram}</Text>

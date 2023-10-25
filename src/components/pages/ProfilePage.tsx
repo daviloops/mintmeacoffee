@@ -11,7 +11,7 @@ interface pageProps {
 const ProfilePage: FC<pageProps> = ({ profileId }) => {
   return (
     <main>
-      <Box px={4} pb={4} pt={2}>
+      <Box px={4} pb={2} pt={{ base: 8, sm: 1 }}>
         <Profile profileId={profileId} />
       </Box>
       

@@ -47,7 +47,7 @@ const MintButton = ({ mintArgs, children, ...props }:{ mintArgs: MintArgs, child
   }
 
   return (
-    <Button isLoading={loading} colorScheme='purple' onClick={() => handleMint(mintArgs)} {...props}>
+    <Button  size={{ base: "sm", sm: "md" }} isLoading={loading} colorScheme='purple' onClick={() => handleMint(mintArgs)} {...props}>
       {children}
     </Button>
   );

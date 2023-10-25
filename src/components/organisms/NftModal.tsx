@@ -47,20 +47,20 @@ const NftModal = ({ nft, isOpen, onClose }: NftModalI) => {
             <Image _hover={{ cursor: 'pointer' }} src={appendPath(baseUri, nft.media)} onClick={handleToggle} />
           ) : (
             <Box backgroundColor="purple.100" _hover={{ cursor: 'pointer' }} p={2} sx={{ width: '400px', height: '400px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} onClick={handleToggle}>
-              <Text as="i" textAlign="center" color="purple" fontSize="xl">{nft.description}</Text>
+              <Text as="i" textAlign="center" color="purple"  fontSize={{ base: "lg", sm: "xl" }}>{nft.description}</Text>
             </Box>
           )}
           <Box p={2}>
             <Box display="flex" alignItems="center" mt={2}>
               <Avatar size="sm" mr={2} />
-              <Text>{nft.receiver}</Text>
+              <Text fontSize={{ base: "sm", sm: "md" }}>{nft.receiver}</Text>
             </Box>
             <Box mt={2} mb={4} textAlign={!!getMessage() ? undefined : 'center'}>
-              <Text as="i">{getMessage() || 'No message'}</Text>
+              <Text fontSize={{ base: "sm", sm: "md" }} as="i">{getMessage() || 'No message'}</Text>
             </Box>
             <Box display="flex" alignItems="center" justifyContent="flex-end" my={2}>
               <Avatar size="sm" mr={2} />
-              <Text>{getSigner()}</Text>
+              <Text fontSize={{ base: "sm", sm: "md" }}>{getSigner()}</Text>
             </Box>
           </Box>
         </ModalBody>

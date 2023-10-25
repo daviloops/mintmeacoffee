@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { 
   Box,
@@ -19,9 +19,11 @@ import {
 import { TokenMetadata, MintArgs } from '@mintbase-js/sdk';
 import { useWallet } from '@mintbase-js/react';
 import { uploadFile } from '@mintbase-js/storage';
-import { coffeeNftContractId, storageBaseUrl, coffeeImgId } from '@/config/constants';
+import { coffeeNftContractId, baseImgUrl } from '@/config/constants';
 import useImageAi from '@/hooks/useImageAi';
+import useNftContract from '@/hooks/useNftContract';
 import MintButton from '@/components/atoms/MintButton';
+import { appendPath } from '@/utils';
 
 type MintCoffeeModalProps = {
   profileId: string,
@@ -34,9 +36,16 @@ const MintCoffeeModal = ({ profileId, isOpen, onClose, ...props }: MintCoffeeMod
   const [loadingBrew, setLoadingBrew] = useState(false);
   const [coffeeDescription, setCoffeeDescription] = useState<string>('');
   const [coffeeMessage, setCoffeeMessage] = useState<string>('');
+  const [baseUri, setBaseUri] = useState<string>('');
+  const { getBaseUri } = useNftContract({ accountId: coffeeNftContractId}) 
   
   const { generateImage } = useImageAi();
   const { activeAccountId } = useWallet();
+
+  useEffect(() => {
+    getBaseUri(coffeeNftContractId)
+      .then(res => setBaseUri(res));
+  }, []);
   
   const tokenMetadata: TokenMetadata = {
     media: fileId,
@@ -53,9 +62,9 @@ const MintCoffeeModal = ({ profileId, isOpen, onClose, ...props }: MintCoffeeMod
     ownerId: profileId,
     metadata: tokenMetadata,
   };
-
+  
   const handleCoffeeDescriptionChange = ({ target: { value } }: { target: { value: string } }) => setCoffeeDescription(value);
-
+  
   const handleCoffeeMessageChange = ({ target: { value } }: { target: { value: string } }) => setCoffeeMessage(value);
   
   const blobUrlToFile = (blobUrl:string): Promise<File> => new Promise((resolve) => {
@@ -99,19 +108,19 @@ const MintCoffeeModal = ({ profileId, isOpen, onClose, ...props }: MintCoffeeMod
     <Modal isOpen={isOpen} onClose={handleClose} motionPreset='slideInBottom' isCentered {...props}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader color="purple">Coffee brewer</ModalHeader>
+        <ModalHeader color="purple" fontSize={{ base: "lg", sm: "xl" }}>Coffee brewer</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Box px={4} pb={4} display="flex" justifyContent="center">
-            <Image width={360} src={fileId ? storageBaseUrl + fileId : storageBaseUrl + coffeeImgId} alt="Brewed coffee" />
+            <Image width={360} src={fileId ? appendPath(baseUri, fileId) : baseImgUrl} alt="Brewed coffee" />
           </Box>
           {!fileId ? (
             <Box px={4}>
-              <Textarea variant="filled" value={coffeeDescription} onChange={handleCoffeeDescriptionChange} placeholder='Enter a description to edit the coffee...' />
+              <Textarea fontSize={{ base: "sm", sm: "md" }} variant="filled" value={coffeeDescription} onChange={handleCoffeeDescriptionChange} placeholder='Enter a description to edit the coffee...' />
             </Box>
           ) : (
             <Box px={4}>
-              <Textarea variant="filled" value={coffeeMessage} onChange={handleCoffeeMessageChange} placeholder={`Enter a message for ${profileId}...`}  />
+              <Textarea fontSize={{ base: "sm", sm: "md" }} variant="filled" value={coffeeMessage} onChange={handleCoffeeMessageChange} placeholder={`Enter a message for ${profileId}...`}  />
             </Box>
           )}
         </ModalBody>
@@ -119,12 +128,12 @@ const MintCoffeeModal = ({ profileId, isOpen, onClose, ...props }: MintCoffeeMod
         <ModalFooter>
           <ButtonGroup spacing='4'>
             {!fileId ? (
-              <Button isDisabled={!coffeeDescription} isLoading={loadingBrew} colorScheme='purple' onClick={handleBrew}>
+              <Button size={{ base: "sm", sm: "md" }} isDisabled={!coffeeDescription} isLoading={loadingBrew} colorScheme='purple' onClick={handleBrew}>
                 Brew
               </Button>
             ) : (
               <>
-                <Button variant='outline' colorScheme='teal' onClick={() => setFileId('')}>
+                <Button size={{ base: "sm", sm: "md" }} variant='outline' colorScheme='teal' onClick={() => setFileId('')}>
                   Back
                 </Button>
                 <MintButton mintArgs={mintArgs}>

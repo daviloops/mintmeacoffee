@@ -19,7 +19,7 @@ const MintCoffeeButton = ({ profileId }: { profileId: string }) => {
 
   return (
     <>
-      <Button colorScheme='purple' onClick={handleMintButtonClick}>Mint me a coffee ☕</Button>
+      <Button size={{ base: "sm", sm: "md" }} colorScheme='purple' onClick={handleMintButtonClick}>Mint me a coffee ☕</Button>
       <MintCoffeeModal profileId={profileId} onClose={onClose} isOpen={isOpen} />
     </>
   );

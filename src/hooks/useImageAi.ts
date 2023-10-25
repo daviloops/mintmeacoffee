@@ -1,7 +1,6 @@
-import { useState } from 'react';
-import deepai from 'deepai';
+const deepai = require('deepai');
 
-import { storageBaseUrl, coffeeImgId, deepAiApiKey, deepAiDemoApiKey2 } from '@/config/constants';
+import { baseImgUrl, deepAiApiKey, deepAiDemoApiKey2 } from '@/config/constants';
 
 const useImageAi = () => {
   const apiKey = !!deepAiApiKey ? deepAiApiKey : deepAiDemoApiKey2;
@@ -9,12 +8,12 @@ const useImageAi = () => {
 
   const generateImage = async (description: string) => {
     let newImageUrl = null;
-      var resp = await deepai.callStandardApi("image-editor", {
-        image: storageBaseUrl + coffeeImgId,
+    await deepai.callStandardApi("image-editor", {
+        image: baseImgUrl,
         text: description,
       })
-      .then(res => {
-        newImageUrl = res.output_url;
+      .then(({ output_url }: { output_url: string }) => {
+        newImageUrl = output_url;
       });
 
     return newImageUrl

@@ -1,7 +1,6 @@
 import { CONFIG } from '@/config/constants';
 import { keyStores, connect } from "near-api-js";
 
-// Todo: integrate social.near profile data to profile
 const useSocialDB = ({ accountId }: { accountId: string }) => {
   const connectAccount = async () => {
     const myKeyStore = new keyStores.BrowserLocalStorageKeyStore();

@@ -27,7 +27,7 @@ const NftList = ({ data, handleNftClick, ...props }: { data: Array<MintedNft>, h
   }, []);
 
   return (
-    <Grid templateColumns='repeat(5, 1fr)' gap={6} {...props}>
+    <Grid templateColumns={['repeat(3, 1fr)', 'repeat(4, 1fr)', 'repeat(5, 1fr)', 'repeat(6, 1fr)']} gap={[4, 5, 6, 6]} {...props}>
       {data?.map(item => (
         <GridItem w='100%' key={item.id}>
           {/* // Todo: check case no media */}
@@ -43,7 +43,9 @@ const NftList = ({ data, handleNftClick, ...props }: { data: Array<MintedNft>, h
               justifyContent: 'center',
             }}
           >
-            <Image src={appendPath(baseUri, item.media)} sx={{ borderRadius: '8px' }} />
+            {baseUri && item.media && (
+              <Image src={appendPath(baseUri, item.media)} sx={{ borderRadius: '8px' }} />
+            )}
           </Card>
         </GridItem>
       ))}

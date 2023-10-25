@@ -29,13 +29,27 @@ const DonateInput = () => {
   };
 
   return (
-    <InputGroup maxW={500}>
-      <InputLeftElement pointerEvents='none'>
-        <Search2Icon color='gray.300' />
+    <InputGroup maxW={[360, 360, 450, 500]}>
+      <InputLeftElement h={['32px', '32px', '40px', '40px']} w={['32px', '32px', '40px', '40px']} pointerEvents='none'>
+        <Search2Icon fontSize={['sm', 'sm', 'md', 'md']} color='gray.300' />
       </InputLeftElement>
-      <Input type='text' variant='filled' placeholder='Enter a near account to donate to...' value={profileId} onChange={handleChange} onKeyDown={handleKeyPress} />
-      <InputRightElement width='6.6rem'>
-        <Button isLoading={donateBtnClicked} h='1.75rem' size='sm' colorScheme="purple" onClick={handleClick}>
+      <Input
+        size={['sm', 'sm', 'md', 'md']}
+        type='text'
+        variant='filled'
+        placeholder='Enter a near account to donate to...'
+        value={profileId}
+        onChange={handleChange}
+        onKeyDown={handleKeyPress}
+        sx={{
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          paddingRight: ['6.2em', '6.2em', '7em', '7em']
+        }}
+      />
+      <InputRightElement h={['32px', '32px', '40px', '40px']} w={['5.2em', '5.2em', '6.5em', '6.5em']}>
+        <Button size={['xs', 'xs', 'sm', 'sm']} isLoading={donateBtnClicked} h='1.75rem' colorScheme="purple" onClick={handleClick}>
           donate 💜
         </Button>
       </InputRightElement>
