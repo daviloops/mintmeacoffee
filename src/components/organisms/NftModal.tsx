@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Modal, ModalOverlay, ModalContent, ModalBody, ModalHeader, ModalCloseButton, Image, Box, Text, Avatar } from '@chakra-ui/react';
 
-import { storageBaseUrl } from '@/config/constants';
+import { coffeeNftContractId } from '@/config/constants';
 import { MintedNft } from '@/types';
+import { appendPath } from '@/utils';
+import useNftContract from '@/hooks/useNftContract';
 
 interface NftModalI {
   nft: MintedNft,
@@ -13,6 +15,13 @@ interface NftModalI {
 
 const NftModal = ({ nft, isOpen, onClose }: NftModalI) => {
   const [showImage, setShowImage] = useState(true);
+  const [baseUri, setBaseUri] = useState<string>('');
+  const { getBaseUri } = useNftContract({ accountId: coffeeNftContractId}) 
+
+  useEffect(() => {
+    getBaseUri(coffeeNftContractId)
+      .then(res => setBaseUri(res));
+  }, []);
 
   const decodeExtra = (extra: string) =>  extra ? JSON.parse(extra) : {};
 
@@ -35,7 +44,7 @@ const NftModal = ({ nft, isOpen, onClose }: NftModalI) => {
         <ModalCloseButton />
         <ModalBody>
           {showImage ? (
-            <Image _hover={{ cursor: 'pointer' }} src={nft.media ? `${storageBaseUrl}${nft.media}` : undefined} onClick={handleToggle} />
+            <Image _hover={{ cursor: 'pointer' }} src={appendPath(baseUri, nft.media)} onClick={handleToggle} />
           ) : (
             <Box backgroundColor="purple.100" _hover={{ cursor: 'pointer' }} p={2} sx={{ width: '400px', height: '400px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} onClick={handleToggle}>
               <Text as="i" textAlign="center" color="purple" fontSize="xl">{nft.description}</Text>

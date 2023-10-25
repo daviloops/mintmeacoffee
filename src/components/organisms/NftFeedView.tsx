@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, Suspense, useMemo } from "react";
+import { useState, Suspense } from "react";
 
 import { useDisclosure } from "@chakra-ui/react";
 import { MintedNft, WrapPromise } from "@/types";

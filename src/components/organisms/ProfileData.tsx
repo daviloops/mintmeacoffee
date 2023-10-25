@@ -10,11 +10,14 @@ import {
   HStack,
   Link,
   Tag,
+  SkeletonCircle,
+  SkeletonText,
 } from '@chakra-ui/react';
 import useSocialDB from '@/hooks/useSocialDB';
 import useNftContract from '@/hooks/useNftContract';
 
 import { ipfsUrl, CONFIG, coffeeNftContractId } from '@/config/constants';
+import { appendPath } from '@/utils';
 
 interface ProfileData {
   image?: {
@@ -44,9 +47,29 @@ interface ProfileData {
   tags?: Object,
 }
 
+export const Loading = () =>
+  <VStack gap={2}>
+    <SkeletonCircle size="100px" />
+    <SkeletonText noOfLines={1} skeletonHeight={6} w="240px" />
+    <SkeletonText noOfLines={1} skeletonHeight={4} w="700px" />
+    <SkeletonText noOfLines={1} skeletonHeight={4} w="700px" />
+    <SkeletonText noOfLines={1} skeletonHeight={4} w="500px" />
+    <HStack spacing={2}>
+      {[...Array(3)].map(() => (
+        <SkeletonText noOfLines={1} skeletonHeight={3} w="100px" />
+      ))}
+    </HStack>
+    <HStack spacing={4}>
+      {[...Array(4)].map(() => (
+        <SkeletonText noOfLines={1} skeletonHeight={3} w="100px" />
+      ))}
+    </HStack>
+  </VStack>;
+
 const ProfileData = ({ profileId }: { profileId: string }) => {
   const [profileData, setProfileData] = useState<ProfileData>({});
   const [profileImageUrl, setProfileImageUrl] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(true);
 
   const { getProfileData } = useSocialDB({ accountId: coffeeNftContractId });
   const { getNftMetadata, getNftToken } = useNftContract({ accountId: coffeeNftContractId });
@@ -56,23 +79,15 @@ const ProfileData = ({ profileId }: { profileId: string }) => {
       .then(data => {
         console.log({data})
         setProfileData(data?.[`${profileId}`]?.profile);
-    getProfileImageUrl(data?.[`${profileId}`]?.profile)
-      .then(url => {
-        if (url) {
-          setProfileImageUrl(url);
-        }
-      });
-    });
+        getProfileImageUrl(data?.[`${profileId}`]?.profile)
+          .then(url => {
+            if (url) {
+              setProfileImageUrl(url);
+            }
+          });
+      })
+      .finally(() => setLoading(false));
   }, []);
-
-  const appendPath = (href: string, path: string) => {
-    if (!path) { 
-      return href;
-    }
-    const url = new URL(href);
-    url.pathname += `${url.pathname.endsWith('/') ? "" : "/"}${path.startsWith('/') ? path.slice(1) : path}`
-    return url.href;
-  }
   
   const getProfileImageUrl = async (data: ProfileData) => {
     if (data?.image) {
@@ -85,12 +100,16 @@ const ProfileData = ({ profileId }: { profileId: string }) => {
         if (metadata.base_uri) {
           const nft = await getNftToken(data.image.nft.contractId, data.image.nft.tokenId);
           if (nft.metadata.media) {
-            return appendPath(metadata.base_uri, nft.metadata.media).toString();
+            return appendPath(metadata.base_uri, nft.metadata.media);
           }
         }
       }
     }
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <VStack gap={2}>

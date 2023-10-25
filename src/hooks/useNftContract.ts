@@ -46,7 +46,13 @@ const useNftContract = ({ accountId }: { accountId: string }) => {
     return response;
   };
 
-  return { getNftMetadata, getNftToken };
+  const getBaseUri = async (contractId: string) => {
+    const metadata = await getNftMetadata(contractId);
+
+    return metadata.base_uri;
+  };
+
+  return { getNftMetadata, getNftToken, getBaseUri };
 };
 
 export default useNftContract;
