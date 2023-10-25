@@ -12,7 +12,7 @@ const Splash = () => {
   //   }, 3000);
   // }, []);
 
-  console.log({isOpen})
+  // console.log({isOpen})
 
   return (
     <Fade in={!isOpen}>

@@ -70,7 +70,6 @@ const ProfileData = ({ profileId }: { profileId: string }) => {
   useEffect(() => {
     getProfileData(profileId)
       .then(data => {
-        console.log({data})
         setProfileData(data?.[`${profileId}`]?.profile);
         getProfileImageUrl(data?.[`${profileId}`]?.profile)
           .then(url => {
@@ -139,7 +138,7 @@ const ProfileData = ({ profileId }: { profileId: string }) => {
       {profileData?.tags && (
         <HStack spacing={2} wrap="wrap" justify="center">
           {Object.keys(profileData.tags)?.map(tag => (
-            <Tag fontSize={{ base: "xs", sm: "sm"  }} size={{ base: "sm", sm: "md" }}>{tag}</Tag>
+            <Tag key={tag} fontSize={{ base: "xs", sm: "sm"  }} size={{ base: "sm", sm: "md" }}>{tag}</Tag>
           ))}
         </HStack>
       )}

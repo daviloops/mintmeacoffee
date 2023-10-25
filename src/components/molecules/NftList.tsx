@@ -10,8 +10,8 @@ import useNftContract from '@/hooks/useNftContract';
 
 export const Loading = () =>
   <Grid templateColumns='repeat(5, 1fr)' gap={6}>
-    {[...Array(5)].map(item => (
-      <Card sx={{ borderRadius: '8px' }}>
+    {[...Array(5)].map((_, index) => (
+      <Card sx={{ borderRadius: '8px' }} key={index}>
         <Skeleton sx={{ borderRadius: '8px' }} height="17.5vw" />
       </Card>
       ))}

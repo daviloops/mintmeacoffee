@@ -62,7 +62,7 @@ const DonateInput = () => {
         }}
         isInvalid={isInvalidAccount}
       />
-      <InputRightElement h={['32px', '32px', '40px', '40px']} w={['5.2em', '5.2em', '6.5em', '6.5em']}>
+      <InputRightElement h={['32px', '32px', '40px', '40px']} w={['5.2em', '5.2em', '6.4em', '6.4em']}>
         <Button ref={buttonRef} size={['xs', 'xs', 'sm', 'sm']} isLoading={donateBtnClicked} h='1.75rem' colorScheme="purple" onClick={handleClick}>
           donate 💜
         </Button>
