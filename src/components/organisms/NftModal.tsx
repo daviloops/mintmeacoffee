@@ -46,7 +46,7 @@ const NftModal = ({ nft, isOpen, onClose }: NftModalI) => {
           {showImage ? (
             <Image _hover={{ cursor: 'pointer' }} src={appendPath(baseUri, nft.media)} onClick={handleToggle} />
           ) : (
-            <Box backgroundColor="purple.100" _hover={{ cursor: 'pointer' }} p={2} sx={{ width: '400px', height: '400px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} onClick={handleToggle}>
+            <Box backgroundColor="purple.100" _hover={{ cursor: 'pointer' }} p={2} sx={{ height: '400px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} onClick={handleToggle}>
               <Text as="i" textAlign="center" color="purple"  fontSize={{ base: "lg", sm: "xl" }}>{nft.description}</Text>
             </Box>
           )}
