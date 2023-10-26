@@ -68,6 +68,24 @@ const ProfileData = ({ profileId }: { profileId: string }) => {
   const { getNftMetadata, getNftToken } = useNftContract({ accountId: coffeeNftContractId });
   
   useEffect(() => {
+    const getProfileImageUrl = async (data: ProfileData) => {
+      if (data?.image) {
+        if (data.image.ipfs_cid) {
+          return ipfsUrl + data.image.ipfs_cid;
+        } else if (data.image.url) {
+          return data.image.url;
+        } else if (data.image.nft && data.image.nft.contractId && data.image.nft.tokenId) {
+          const metadata = await getNftMetadata(data.image.nft.contractId);
+          if (metadata.base_uri) {
+            const nft = await getNftToken(data.image.nft.contractId, data.image.nft.tokenId);
+            if (nft.metadata.media) {
+              return appendPath(metadata.base_uri, nft.metadata.media);
+            }
+          }
+        }
+      }
+    };
+  
     getProfileData(profileId)
       .then(data => {
         setProfileData(data?.[`${profileId}`]?.profile);
@@ -79,25 +97,9 @@ const ProfileData = ({ profileId }: { profileId: string }) => {
           });
       })
       .finally(() => setLoading(false));
-  }, []);
+
+  }, [getProfileData, getNftMetadata, getNftToken, profileId]);
   
-  const getProfileImageUrl = async (data: ProfileData) => {
-    if (data?.image) {
-      if (data.image.ipfs_cid) {
-        return ipfsUrl + data.image.ipfs_cid;
-      } else if (data.image.url) {
-        return data.image.url;
-      } else if (data.image.nft && data.image.nft.contractId && data.image.nft.tokenId) {
-        const metadata = await getNftMetadata(data.image.nft.contractId);
-        if (metadata.base_uri) {
-          const nft = await getNftToken(data.image.nft.contractId, data.image.nft.tokenId);
-          if (nft.metadata.media) {
-            return appendPath(metadata.base_uri, nft.metadata.media);
-          }
-        }
-      }
-    }
-  };
 
   if (loading) {
     return <Loading />;

@@ -14,8 +14,8 @@ const DonateInput = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    router.push(`/${profileId}`);
-  }, [donateBtnClicked]);
+    donateBtnClicked && router.push(`/${profileId}`);
+  }, [donateBtnClicked, router, profileId]);
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

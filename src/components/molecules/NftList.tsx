@@ -24,7 +24,7 @@ const NftList = ({ data, handleNftClick, ...props }: { data: Array<MintedNft>, h
   useEffect(() => {
     getBaseUri(coffeeNftContractId)
       .then(res => setBaseUri(res));
-  }, []);
+  }, [getBaseUri]);
 
   return (
     <Grid templateColumns={['repeat(3, 1fr)', 'repeat(4, 1fr)', 'repeat(5, 1fr)', 'repeat(6, 1fr)']} gap={[4, 5, 6, 6]} {...props}>
@@ -44,7 +44,7 @@ const NftList = ({ data, handleNftClick, ...props }: { data: Array<MintedNft>, h
             }}
           >
             {baseUri && item.media && (
-              <Image src={appendPath(baseUri, item.media)} sx={{ borderRadius: '8px' }} />
+              <Image alt="Coffee nft" src={appendPath(baseUri, item.media)} sx={{ borderRadius: '8px' }} />
             )}
           </Card>
         </GridItem>

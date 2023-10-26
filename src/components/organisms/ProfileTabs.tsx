@@ -1,6 +1,6 @@
 'use client';
 
-import { forwardRef, ComponentProps } from 'react';
+import { forwardRef } from 'react';
 
 import { 
   Box,
@@ -30,7 +30,9 @@ const CustomTab = forwardRef<HTMLElement, ButtonProps>((props, ref) => {
       {tabProps.children}
     </Button>
   )
-})
+});
+
+CustomTab.displayName = 'CustomTab';
 
 const ProfileTabs = ({ profileId }: { profileId: string }) => {
   return (
@@ -51,5 +53,7 @@ const ProfileTabs = ({ profileId }: { profileId: string }) => {
     </Tabs>
   );
 };
+
+ProfileTabs.displayName = 'ProfileTabs';
 
 export default ProfileTabs;

@@ -21,7 +21,7 @@ const NftModal = ({ nft, isOpen, onClose }: NftModalI) => {
   useEffect(() => {
     getBaseUri(coffeeNftContractId)
       .then(res => setBaseUri(res));
-  }, []);
+  }, [getBaseUri]);
 
   const decodeExtra = (extra: string) =>  extra ? JSON.parse(extra) : {};
 
@@ -44,7 +44,7 @@ const NftModal = ({ nft, isOpen, onClose }: NftModalI) => {
         <ModalCloseButton />
         <ModalBody>
           {showImage ? (
-            <Image _hover={{ cursor: 'pointer' }} src={appendPath(baseUri, nft.media)} onClick={handleToggle} />
+            <Image alt="coffee base" _hover={{ cursor: 'pointer' }} src={appendPath(baseUri, nft.media)} onClick={handleToggle} />
           ) : (
             <Box backgroundColor="purple.100" _hover={{ cursor: 'pointer' }} p={2} sx={{ height: '400px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} onClick={handleToggle}>
               <Text as="i" textAlign="center" color="purple"  fontSize={{ base: "lg", sm: "xl" }}>{nft.description}</Text>

@@ -49,7 +49,7 @@ const MintCoffeeModal = ({ profileId, isOpen, onClose, ...props }: MintCoffeeMod
   useEffect(() => {
     getBaseUri(coffeeNftContractId)
       .then(res => setBaseUri(res));
-  }, []);
+  }, [getBaseUri]);
   
   const tokenMetadata: TokenMetadata = {
     media: fileId,

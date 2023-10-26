@@ -12,7 +12,7 @@ const NftFeedViewAllProfile = ({ profileId }: { profileId: string }) => {
   useEffect(() => {
     const data = fetchFeedMintedProfile(profileId);
     setData(data);
-  }, []);
+  }, [profileId]);
   
   return <NftFeedView data={data} />;
 };
