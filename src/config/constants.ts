@@ -18,7 +18,8 @@ export const deepAiDemoApiKey1 = 'quickstart-QUdJIGlzIGNvbWluZy4uLi4K'; // *Plea
 export const deepAiDemoApiKey2 = '4173cc7c-7af0-4aad-a499-7258bcddef47'; // *Please use wisely
 
 export const MED_GAS = '300000000000000';
-export const network = process.env.NEXT_PUBLIC_NETWORK as Network || NEAR_NETWORKS.TESTNET;
+// export const network = process.env.NEXT_PUBLIC_NETWORK as Network || NEAR_NETWORKS.TESTNET;
+export const network = 'testnet';
 export const ipfsUrl = 'https://ipfs.near.social/ipfs/';
 
 export const TESTNET_CONFIG = {
