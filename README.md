@@ -1,7 +1,14 @@
-☕ dApp on near protocol to support people by minting them NFTs and donating.
+# ☕ dApp on near protocol to support people by minting them NFTs and donating
 
-The dApp uses mintbase sdk to mint NFTs. To learn more [visit](https://www.mintbase.xyz/).
+## Features
+- Server side rendering with Nextjs
+- UI/UX with Chakra UI
+- AI image editing with [deepAI](https://deepai.org/machine-learning-model/image-editor)
+- NFT minting with [Mintbase SDKs](https://docs.mintbase.xyz/dev/mintbase-sdk-ref)
+- Proxy mint contract that pays for minting
+- Sync with [Social Near](https://near.social/) profile data from socialDB smart contract
 
+## Instructions
 0) Copy .env.local.example into .env.local to set your own environment variables
 1) Create near user
   Create an account in near to be the owner of the contracts. Save account addres on .env.local file.
@@ -13,19 +20,23 @@ The dApp uses mintbase sdk to mint NFTs. To learn more [visit](https://www.mintb
 
    Create a new near account. You can create a subaccount using the previous owner account with:
     - Install near cli (optional)
-       npm install --global near-cli
+      
+      `npm install --global near-cli`
     - Login with owner account
-       near login
+
+      `near login`
     - Create subaccount
-        near create-account PROXY-SUBACCOUNT-NAME.YOUR-ACCOUNT-NAME.testnet --masterAccount YOUR-ACCOUNT-NAME.testnet
+
+      `near create-account PROXY-SUBACCOUNT-NAME.YOUR-ACCOUNT-NAME.testnet --masterAccount YOUR-ACCOUNT-NAME.testnet`
     - Build and deploy this [proxy contract](https://github.com/daviloops/mintmeacoffee-proxy)
-        near deploy --accountId PROXY-SUBACCOUNT-NAME.YOUR-ACCOUNT-NAME.testnet --wasmFile PATH_TO_WASM_FILE
-    - Set proxy contract at .env.local file
+
+      `near deploy --accountId PROXY-SUBACCOUNT-NAME.YOUR-ACCOUNT-NAME.testnet --wasmFile PATH_TO_WASM_FILE`
+    - Set proxy contract at `.env.local` file
 5) Get an api key from deepAI (or use default, but please moderate)
-    - Sign up at deepai.org
-    - Go to profile at https://deepai.org/dashboard/profile, copy your api key and set it at .env.local file
-6) Install dependencies with npm i
-7) Interact with nextjs project using using the following instructions:
+    - Sign up at [deepAI](https://deepai.org)
+    - Go to your [deepAI profile](https://deepai.org/dashboard/profile), copy your api key and set it at `.env.local` file
+6) Install dependencies with `npm i`
+7) Interact with nextjs project using the following instructions or just run `npm run dev`:
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
